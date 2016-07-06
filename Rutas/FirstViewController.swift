@@ -72,7 +72,7 @@ class FirstViewController: UIViewController {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/obtener/rutas")
+    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas")
     
     dataTask = defaultSession.dataTaskWithURL(url!) {
       data, response, error in
@@ -119,7 +119,7 @@ extension FirstViewController: UISearchBarDelegate {
       let busqueda = searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(expectedCharSet)!
       print("Busqueda: \(busqueda)")
       
-      let url = NSURL(string: "http://190.141.120.200:8080/Rutas/obtener/rutas?buscar=\(busqueda)")
+      let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas?buscar=\(busqueda)")
       
       dataTask = defaultSession.dataTaskWithURL(url!) {
         data, response, error in
