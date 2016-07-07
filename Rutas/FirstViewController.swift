@@ -44,7 +44,8 @@ class FirstViewController: UIViewController {
             if let diccionarioDeRuta = diccionarioDeRuta as? [String: AnyObject], id = diccionarioDeRuta["id"] as? Int {
               let partida = diccionarioDeRuta["partida"] as? String
               let destino = diccionarioDeRuta["destino"] as? String
-              resultados.append(Ruta(id: id, partida: partida, destino: destino))
+              let descripcion = diccionarioDeRuta["descripcion"] as? String
+              resultados.append(Ruta(id: id, partida: partida, destino: destino, descripcion: descripcion))
             } else {
               print("No es un diccionario")
             }
@@ -176,8 +177,7 @@ extension FirstViewController: UITableViewDataSource {
     
     let route = resultados[indexPath.row]
     
-    cell.titleLabel.text = "\(route.partida) - \(route.destino)"
-    print("Celda: \(cell.titleLabel.text)")
+    cell.titleLabel.text = route.descripcion
     
     return cell
   }

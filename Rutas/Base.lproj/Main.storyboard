@@ -18,7 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fGr-M0-aSi">
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="Qyf-GY-VhC">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="qDX-fW-ggK"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fGr-M0-aSi">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -42,29 +49,40 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="Gg1-nH-Zsv"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="kRR-ba-HyN"/>
+                                </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="WdU-j0-tTL">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="PGu-VF-A7H"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="fGr-M0-aSi" secondAttribute="trailing" constant="-20" id="5Nm-4U-JHV"/>
+                            <constraint firstItem="fGr-M0-aSi" firstAttribute="top" secondItem="Qyf-GY-VhC" secondAttribute="bottom" id="9KG-sZ-DS6"/>
+                            <constraint firstItem="Qyf-GY-VhC" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="9vg-7N-uWa"/>
                             <constraint firstItem="fGr-M0-aSi" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="Cee-pf-yec"/>
-                            <constraint firstItem="fGr-M0-aSi" firstAttribute="top" secondItem="WdU-j0-tTL" secondAttribute="bottom" id="b7r-Ex-VIz"/>
-                            <constraint firstItem="WdU-j0-tTL" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="bqo-3e-OZh"/>
+                            <constraint firstItem="fGr-M0-aSi" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="Gtl-Xp-MXT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fGr-M0-aSi" secondAttribute="trailing" constant="-20" id="KVC-Qc-q3E"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="fGr-M0-aSi" secondAttribute="bottom" id="NAZ-aA-Oda"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qyf-GY-VhC" secondAttribute="trailing" constant="-20" id="NXC-0r-LO4"/>
+                            <constraint firstItem="fGr-M0-aSi" firstAttribute="top" secondItem="Qyf-GY-VhC" secondAttribute="bottom" id="R19-lQ-jOT"/>
+                            <constraint firstItem="fGr-M0-aSi" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="lhI-qL-uvQ"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="fGr-M0-aSi" secondAttribute="bottom" id="sIa-Oy-uNA"/>
-                            <constraint firstItem="WdU-j0-tTL" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="uFC-on-IZz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="WdU-j0-tTL" secondAttribute="trailing" constant="-20" id="vFf-Fy-XfW"/>
+                            <constraint firstItem="Qyf-GY-VhC" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="yF7-qV-p3K"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5Nm-4U-JHV"/>
+                                <exclude reference="Cee-pf-yec"/>
+                                <exclude reference="Gtl-Xp-MXT"/>
+                                <exclude reference="R19-lQ-jOT"/>
+                                <exclude reference="sIa-Oy-uNA"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="searchBar" destination="WdU-j0-tTL" id="dX9-JX-Npj"/>
+                        <outlet property="searchBar" destination="Qyf-GY-VhC" id="bNd-ld-ehv"/>
                         <outlet property="tableView" destination="fGr-M0-aSi" id="eyo-AL-0KF"/>
                     </connections>
                 </viewController>
