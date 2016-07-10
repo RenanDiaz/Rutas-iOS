@@ -9,6 +9,7 @@
 import UIKit
 
 class FirstViewController: UIViewController {
+  
   // 1
   let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
   // 2
@@ -34,6 +35,36 @@ class FirstViewController: UIViewController {
     super.didReceiveMemoryWarning()
   }
   
+  func cargarDatos() {
+    if searchBar.text!.isEmpty {
+      if dataTask != nil {
+        dataTask?.cancel()
+      }
+      
+      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+      
+      let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas")
+      
+      dataTask = defaultSession.dataTaskWithURL(url!) {
+        data, response, error in
+        
+        dispatch_async(dispatch_get_main_queue()) {
+          UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
+        
+        if let error = error {
+          print(error.localizedDescription)
+        } else if let httpResponse = response as? NSHTTPURLResponse {
+          if httpResponse.statusCode == 200 {
+            self.actualizarDatos(data)
+          }
+        }
+      }
+      
+      dataTask?.resume()
+    }
+  }
+  
   func actualizarDatos(data: NSData?) {
     resultados.removeAll()
     do {
@@ -42,10 +73,10 @@ class FirstViewController: UIViewController {
         if let array: AnyObject = response["rutas"] {
           for diccionarioDeRuta in array as! [AnyObject] {
             if let diccionarioDeRuta = diccionarioDeRuta as? [String: AnyObject], id = diccionarioDeRuta["id"] as? Int {
-              let partida = diccionarioDeRuta["partida"] as? String
+              let origen = diccionarioDeRuta["origen"] as? String
               let destino = diccionarioDeRuta["destino"] as? String
               let descripcion = diccionarioDeRuta["descripcion"] as? String
-              resultados.append(Ruta(id: id, partida: partida, destino: destino, descripcion: descripcion))
+              resultados.append(Ruta(id: id, origen: origen, destino: destino, descripcion: descripcion))
             } else {
               print("No es un diccionario")
             }
@@ -66,38 +97,24 @@ class FirstViewController: UIViewController {
     }
   }
   
-  func cargarDatos() {
-    if dataTask != nil {
-      dataTask?.cancel()
-    }
-    
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas")
-    
-    dataTask = defaultSession.dataTaskWithURL(url!) {
-      data, response, error in
-      
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-      }
-      
-      if let error = error {
-        print(error.localizedDescription)
-      } else if let httpResponse = response as? NSHTTPURLResponse {
-        if httpResponse.statusCode == 200 {
-          self.actualizarDatos(data)
-        }
-      }
-    }
-    
-    dataTask?.resume()
-  }
-  
   // MARK: Keyboard dismissal
   
   func dismissKeyboard() {
     searchBar.resignFirstResponder()
+  }
+  
+  // MARK: Segue
+  
+  let routeSegueIdentifier = "ShowRouteInfoSegue"
+  
+  // MARK: - Navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if  segue.identifier == routeSegueIdentifier,
+      let destination = segue.destinationViewController as? RouteInfoController,
+      routeIndex = tableView.indexPathForSelectedRow?.row
+    {
+      destination.ruta = resultados[routeIndex]
+    }
   }
 }
 
@@ -141,6 +158,10 @@ extension FirstViewController: UISearchBarDelegate {
       dataTask?.resume()
     }
   }
+  
+  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    self.cargarDatos()
+  }
 
   func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
     return .TopAttached
@@ -158,14 +179,13 @@ extension FirstViewController: UISearchBarDelegate {
 // MARK: RouteCellDelegate
 
 extension FirstViewController: RouteCellDelegate {
-  func openTapped(cell: RouteCell) {
-    print(cell.titleLabel.text)
-  }
+  
 }
 
 // MARK: UITableViewDataSource
 
 extension FirstViewController: UITableViewDataSource {
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return resultados.count
   }
@@ -178,6 +198,7 @@ extension FirstViewController: UITableViewDataSource {
     let route = resultados[indexPath.row]
     
     cell.titleLabel.text = route.descripcion
+    cell.subtitleLabel.text = String(route.id!)
     
     return cell
   }
@@ -186,7 +207,12 @@ extension FirstViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension FirstViewController: UITableViewDelegate {
+  
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     return 62.0
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
 }

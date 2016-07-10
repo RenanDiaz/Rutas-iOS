@@ -16,6 +16,12 @@
 		323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137E41D287CFD00A67C18 /* HomeTableViewController.swift */; };
 		323137E81D288FCE00A67C18 /* Ruta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137E71D288FCE00A67C18 /* Ruta.swift */; };
 		323137EB1D2BE5FE00A67C18 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137EA1D2BE5FE00A67C18 /* RouteCell.swift */; };
+		323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */; };
+		323137F01D30CFA200A67C18 /* Asignacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137EF1D30CFA100A67C18 /* Asignacion.swift */; };
+		323137F21D30D0AB00A67C18 /* Vehiculo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F11D30D0AB00A67C18 /* Vehiculo.swift */; };
+		323137F41D30D28F00A67C18 /* Marca.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F31D30D28F00A67C18 /* Marca.swift */; };
+		323137F61D30E14A00A67C18 /* AsignationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F51D30E14A00A67C18 /* AsignationCell.swift */; };
+		323137F81D30FC3A00A67C18 /* AsignacionesPorFecha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +36,12 @@
 		323137E41D287CFD00A67C18 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		323137E71D288FCE00A67C18 /* Ruta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ruta.swift; sourceTree = "<group>"; };
 		323137EA1D2BE5FE00A67C18 /* RouteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
+		323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteInfoController.swift; sourceTree = "<group>"; };
+		323137EF1D30CFA100A67C18 /* Asignacion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asignacion.swift; sourceTree = "<group>"; };
+		323137F11D30D0AB00A67C18 /* Vehiculo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehiculo.swift; sourceTree = "<group>"; };
+		323137F31D30D28F00A67C18 /* Marca.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marca.swift; sourceTree = "<group>"; };
+		323137F51D30E14A00A67C18 /* AsignationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsignationCell.swift; sourceTree = "<group>"; };
+		323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsignacionesPorFecha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +77,7 @@
 				323137D01D286CD200A67C18 /* FirstViewController.swift */,
 				323137D21D286CD200A67C18 /* SecondViewController.swift */,
 				323137E41D287CFD00A67C18 /* HomeTableViewController.swift */,
+				323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */,
 				323137D41D286CD200A67C18 /* Main.storyboard */,
 				323137E61D288AFF00A67C18 /* Resources */,
 				323137E91D288FD200A67C18 /* Data Objects */,
@@ -88,6 +101,10 @@
 			isa = PBXGroup;
 			children = (
 				323137E71D288FCE00A67C18 /* Ruta.swift */,
+				323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */,
+				323137EF1D30CFA100A67C18 /* Asignacion.swift */,
+				323137F31D30D28F00A67C18 /* Marca.swift */,
+				323137F11D30D0AB00A67C18 /* Vehiculo.swift */,
 			);
 			name = "Data Objects";
 			sourceTree = "<group>";
@@ -96,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				323137EA1D2BE5FE00A67C18 /* RouteCell.swift */,
+				323137F51D30E14A00A67C18 /* AsignationCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -132,6 +150,7 @@
 				TargetAttributes = {
 					323137CA1D286CD200A67C18 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = W5SWU29W6D;
 					};
 				};
 			};
@@ -172,9 +191,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				323137E81D288FCE00A67C18 /* Ruta.swift in Sources */,
+				323137F81D30FC3A00A67C18 /* AsignacionesPorFecha.swift in Sources */,
+				323137F01D30CFA200A67C18 /* Asignacion.swift in Sources */,
+				323137F41D30D28F00A67C18 /* Marca.swift in Sources */,
+				323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */,
 				323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */,
 				323137D31D286CD200A67C18 /* SecondViewController.swift in Sources */,
+				323137F21D30D0AB00A67C18 /* Vehiculo.swift in Sources */,
 				323137CF1D286CD200A67C18 /* AppDelegate.swift in Sources */,
+				323137F61D30E14A00A67C18 /* AsignationCell.swift in Sources */,
 				323137D11D286CD200A67C18 /* FirstViewController.swift in Sources */,
 				323137EB1D2BE5FE00A67C18 /* RouteCell.swift in Sources */,
 			);
@@ -291,10 +316,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Rutas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -302,10 +330,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Rutas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -328,6 +359,7 @@
 				323137E11D286CD200A67C18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

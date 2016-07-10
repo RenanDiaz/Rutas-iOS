@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol RouteCellDelegate {
+protocol AsignationCellDelegate {
   
 }
 
-class RouteCell: UITableViewCell {
-  var delegate: RouteCellDelegate?
+class AsignationCell: UITableViewCell {
+  var delegate: AsignationCellDelegate?
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var subtitleLabel: UILabel!
