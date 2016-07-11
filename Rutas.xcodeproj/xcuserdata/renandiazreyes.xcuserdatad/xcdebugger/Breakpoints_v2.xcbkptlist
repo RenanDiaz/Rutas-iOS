@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rutas/RouteInfoController.swift"
-            timestampString = "489751764.93019"
+            timestampString = "489803330.626435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "tapRecognizer"
             landmarkType = "19">
          </BreakpointContent>

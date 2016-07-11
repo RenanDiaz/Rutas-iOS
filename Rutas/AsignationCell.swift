@@ -8,12 +8,7 @@
 
 import UIKit
 
-protocol AsignationCellDelegate {
-  
-}
-
 class AsignationCell: UITableViewCell {
-  var delegate: AsignationCellDelegate?
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var subtitleLabel: UILabel!

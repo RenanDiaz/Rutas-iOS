@@ -15,9 +15,10 @@ class FirstViewController: UIViewController {
   // 2
   var dataTask: NSURLSessionDataTask?
   
-  @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var tableView: UITableView!
+  var searchBar: UISearchBar!
   
+  var rutas = [Ruta]()
   var resultados = [Ruta]()
   
   lazy var tapRecognizer: UITapGestureRecognizer = {
@@ -25,14 +26,19 @@ class FirstViewController: UIViewController {
     return recognizer
   }()
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
     tableView.tableFooterView = UIView()
-    self.cargarDatos()
+    searchBar = UISearchBar.init(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, 44))
+    searchBar.placeholder = "Buscar rutas"
+    searchBar.delegate = self
+    tableView.tableHeaderView = searchBar
+    cargarDatos()
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.automaticallyAdjustsScrollViewInsets = false
   }
   
   func cargarDatos() {
@@ -66,7 +72,7 @@ class FirstViewController: UIViewController {
   }
   
   func actualizarDatos(data: NSData?) {
-    resultados.removeAll()
+    rutas.removeAll()
     do {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
@@ -76,7 +82,7 @@ class FirstViewController: UIViewController {
               let origen = diccionarioDeRuta["origen"] as? String
               let destino = diccionarioDeRuta["destino"] as? String
               let descripcion = diccionarioDeRuta["descripcion"] as? String
-              resultados.append(Ruta(id: id, origen: origen, destino: destino, descripcion: descripcion))
+              rutas.append(Ruta(id: id, origen: origen, destino: destino, descripcion: descripcion))
             } else {
               print("No es un diccionario")
             }
@@ -91,9 +97,11 @@ class FirstViewController: UIViewController {
       print("Error parseando resultados: \(error.localizedDescription)")
     }
     
+    resultados = rutas
+    
     dispatch_async(dispatch_get_main_queue()) {
       self.tableView.reloadData()
-      self.tableView.setContentOffset(CGPointZero, animated: false)
+      self.tableView.setContentOffset(CGPointMake(0, 44), animated: false)
     }
   }
   
@@ -123,44 +131,12 @@ class FirstViewController: UIViewController {
 extension FirstViewController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    // Dimiss the keyboard
-    dismissKeyboard()
     
-    if !searchBar.text!.isEmpty {
-      if dataTask != nil {
-        dataTask?.cancel()
-      }
-      
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-      
-      let expectedCharSet = NSCharacterSet.URLQueryAllowedCharacterSet()
-      let busqueda = searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(expectedCharSet)!
-      print("Busqueda: \(busqueda)")
-      
-      let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas?buscar=\(busqueda)")
-      
-      dataTask = defaultSession.dataTaskWithURL(url!) {
-        data, response, error in
-        
-        dispatch_async(dispatch_get_main_queue()) {
-          UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        }
-        
-        if let error = error {
-          print(error.localizedDescription)
-        } else if let httpResponse = response as? NSHTTPURLResponse {
-          if httpResponse.statusCode == 200 {
-            self.actualizarDatos(data)
-          }
-        }
-      }
-      
-      dataTask?.resume()
-    }
+    dismissKeyboard()
   }
   
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-    self.cargarDatos()
+    filterContentForSearchText(searchText)
   }
 
   func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
@@ -174,12 +150,27 @@ extension FirstViewController: UISearchBarDelegate {
   func searchBarTextDidEndEditing(searchBar: UISearchBar) {
     view.removeGestureRecognizer(tapRecognizer)
   }
-}
-
-// MARK: RouteCellDelegate
-
-extension FirstViewController: RouteCellDelegate {
   
+  func filterContentForSearchText(searchText: String) {
+    
+    if self.rutas.count == 0 {
+      self.resultados.removeAll()
+      return
+    }
+    
+    self.resultados = self.rutas.filter({( ruta: Ruta) -> Bool in
+      var text = searchText
+      if text.isEmpty {
+        text = " "
+      }
+      return ruta.descripcion!.lowercaseString.rangeOfString(text.lowercaseString) != nil
+    })
+    
+    dispatch_async(dispatch_get_main_queue()) {
+      self.tableView.reloadData()
+      self.tableView.setContentOffset(CGPointZero, animated: false)
+    }
+  }
 }
 
 // MARK: UITableViewDataSource
@@ -193,14 +184,30 @@ extension FirstViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("RouteCell", forIndexPath: indexPath) as!RouteCell
     
-    cell.delegate = self
-    
     let route = resultados[indexPath.row]
     
     cell.titleLabel.text = route.descripcion
     cell.subtitleLabel.text = String(route.id!)
     
     return cell
+  }
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    let numOfSections = resultados.count > 0 ? 1 : 0
+    if (numOfSections > 0)
+    {
+      tableView.backgroundView = nil
+    }
+    else
+    {
+      let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+      noDataLabel.text = "No hay rutas"
+      noDataLabel.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+      noDataLabel.textAlignment = NSTextAlignment.Center
+      tableView.backgroundView = noDataLabel
+    }
+    
+    return numOfSections
   }
 }
 

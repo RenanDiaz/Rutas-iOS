@@ -22,6 +22,8 @@
 		323137F41D30D28F00A67C18 /* Marca.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F31D30D28F00A67C18 /* Marca.swift */; };
 		323137F61D30E14A00A67C18 /* AsignationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F51D30E14A00A67C18 /* AsignationCell.swift */; };
 		323137F81D30FC3A00A67C18 /* AsignacionesPorFecha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */; };
+		323137FA1D339FA700A67C18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323137F91D339FA700A67C18 /* MapKit.framework */; };
+		323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137FB1D33A09D00A67C18 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		323137F31D30D28F00A67C18 /* Marca.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marca.swift; sourceTree = "<group>"; };
 		323137F51D30E14A00A67C18 /* AsignationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsignationCell.swift; sourceTree = "<group>"; };
 		323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsignacionesPorFecha.swift; sourceTree = "<group>"; };
+		323137F91D339FA700A67C18 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		323137FB1D33A09D00A67C18 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323137FA1D339FA700A67C18 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +63,7 @@
 		323137C21D286CD200A67C18 = {
 			isa = PBXGroup;
 			children = (
+				323137F91D339FA700A67C18 /* MapKit.framework */,
 				323137CD1D286CD200A67C18 /* Rutas */,
 				323137CC1D286CD200A67C18 /* Products */,
 			);
@@ -76,6 +82,7 @@
 			children = (
 				323137D01D286CD200A67C18 /* FirstViewController.swift */,
 				323137D21D286CD200A67C18 /* SecondViewController.swift */,
+				323137FB1D33A09D00A67C18 /* MapViewController.swift */,
 				323137E41D287CFD00A67C18 /* HomeTableViewController.swift */,
 				323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */,
 				323137D41D286CD200A67C18 /* Main.storyboard */,
@@ -196,6 +203,7 @@
 				323137F41D30D28F00A67C18 /* Marca.swift in Sources */,
 				323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */,
 				323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */,
+				323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */,
 				323137D31D286CD200A67C18 /* SecondViewController.swift in Sources */,
 				323137F21D30D0AB00A67C18 /* Vehiculo.swift in Sources */,
 				323137CF1D286CD200A67C18 /* AppDelegate.swift in Sources */,

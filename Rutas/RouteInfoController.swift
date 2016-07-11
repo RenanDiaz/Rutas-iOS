@@ -16,7 +16,6 @@ class RouteInfoController: UIViewController {
   var dataTask: NSURLSessionDataTask?
   
   @IBOutlet weak var origenLabel: UILabel!
-  @IBOutlet weak var nombreRutaLabel: UILabel!
   @IBOutlet weak var destinoLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
   
@@ -30,10 +29,10 @@ class RouteInfoController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.title = ruta.descripcion
   }
   
   override func viewWillAppear(animated: Bool) {
-    nombreRutaLabel.text = ruta.descripcion!
     origenLabel.text = ruta.origen!
     destinoLabel.text = ruta.destino!
     tableView.tableFooterView = UIView()
@@ -148,13 +147,6 @@ class RouteInfoController: UIViewController {
     
   }
 }
-
-// MARK: RouteCellDelegate
-
-extension RouteInfoController: AsignationCellDelegate {
-  
-}
-
 // MARK: UITableViewDataSource
 
 extension RouteInfoController: UITableViewDataSource {
@@ -166,8 +158,6 @@ extension RouteInfoController: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("AsignationCell", forIndexPath: indexPath) as!AsignationCell
     
-    cell.delegate = self
-    
     let asignacion = asignacionesPorFechas[indexPath.section].asignaciones[indexPath.row]
     
     cell.titleLabel.text = self.formatTimeRange(asignacion.horaDePartida!, to: asignacion.horaDeLlegada!)
@@ -177,7 +167,21 @@ extension RouteInfoController: UITableViewDataSource {
   }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return asignacionesPorFechas.count
+    let numOfSections = asignacionesPorFechas.count
+    if (numOfSections > 0)
+    {
+      tableView.backgroundView = nil
+    }
+    else
+    {
+      let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+      noDataLabel.text = "No hay horarios asignados"
+      noDataLabel.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+      noDataLabel.textAlignment = NSTextAlignment.Center
+      tableView.backgroundView = noDataLabel
+    }
+    
+    return numOfSections
   }
   
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
