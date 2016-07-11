@@ -20,20 +20,19 @@ class FirstViewController: UIViewController {
   
   var rutas = [Ruta]()
   var resultados = [Ruta]()
-  
-  lazy var tapRecognizer: UITapGestureRecognizer = {
-    var recognizer = UITapGestureRecognizer(target:self, action: #selector(FirstViewController.dismissKeyboard))
-    return recognizer
-  }()
+  var cargar = true
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    tableView.tableFooterView = UIView()
-    searchBar = UISearchBar.init(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, 44))
-    searchBar.placeholder = "Buscar rutas"
-    searchBar.delegate = self
-    tableView.tableHeaderView = searchBar
-    cargarDatos()
+    if cargar {
+      cargar = false
+      tableView.tableFooterView = UIView()
+      searchBar = UISearchBar.init(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, 44))
+      searchBar.placeholder = "Buscar rutas"
+      searchBar.delegate = self
+      tableView.tableHeaderView = searchBar
+      cargarDatos()
+    }
   }
   
   override func viewDidLoad() {
@@ -143,14 +142,6 @@ extension FirstViewController: UISearchBarDelegate {
     return .TopAttached
   }
   
-  func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-    view.addGestureRecognizer(tapRecognizer)
-  }
-  
-  func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-    view.removeGestureRecognizer(tapRecognizer)
-  }
-  
   func filterContentForSearchText(searchText: String) {
     
     if self.rutas.count == 0 {
@@ -220,6 +211,14 @@ extension FirstViewController: UITableViewDelegate {
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    dismissKeyboard()
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  }
+}
+
+extension FirstViewController: UIScrollViewDelegate {
+  
+  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    searchBar.resignFirstResponder()
   }
 }
