@@ -40,7 +40,7 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>locatin-services</string>
+		<string>location-services</string>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarTintParameters</key>
