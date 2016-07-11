@@ -34,4 +34,23 @@ class Asignacion {
     self.horaDeLlegada = horaDeLlegada
     self.rangoDeHoras = rangoDeHoras
   }
+  
+  init(){
+    
+  }
+  
+  func rangoDeHorasFormateado() -> String {
+    return "\(formatShortTimeToLocalizedTime(horaDePartida!)) - \(formatShortTimeToLocalizedTime(horaDeLlegada!))"
+  }
+  func formatShortTimeToLocalizedTime(timeString: String) -> String {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "HH:mm"
+    let time = dateFormatter.dateFromString(timeString)
+    
+    dateFormatter.dateStyle = NSDateFormatterStyle.NoStyle
+    dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+    dateFormatter.timeZone = NSTimeZone.localTimeZone()
+    dateFormatter.locale = NSLocale.currentLocale()
+    return dateFormatter.stringFromDate(time!)
+  }
 }

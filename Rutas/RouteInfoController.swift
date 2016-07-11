@@ -146,6 +146,21 @@ class RouteInfoController: UIViewController {
   func dismissKeyboard() {
     
   }
+  
+  // MARK: Segue
+  
+  let mapSegueIdentifier = "ShowMapSegue"
+  
+  // MARK: - Navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == mapSegueIdentifier,
+      let destination = segue.destinationViewController as? MapViewController,
+      routeIndex = tableView.indexPathForSelectedRow?.row,
+      routeSection = tableView.indexPathForSelectedRow?.section
+    {
+      destination.asignacion = asignacionesPorFechas[routeSection].asignaciones[routeIndex]
+    }
+  }
 }
 // MARK: UITableViewDataSource
 
@@ -160,7 +175,7 @@ extension RouteInfoController: UITableViewDataSource {
     
     let asignacion = asignacionesPorFechas[indexPath.section].asignaciones[indexPath.row]
     
-    cell.titleLabel.text = self.formatTimeRange(asignacion.horaDePartida!, to: asignacion.horaDeLlegada!)
+    cell.titleLabel.text = asignacion.rangoDeHorasFormateado()
     cell.subtitleLabel.text = asignacion.vehiculo?.nombreCorto
     
     return cell
@@ -185,35 +200,7 @@ extension RouteInfoController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return self.formatShortDateToLongDate(asignacionesPorFechas[section].fecha)
-  }
-  
-  func formatShortDateToLongDate(dateString: String) -> String {
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd"
-    let date = dateFormatter.dateFromString(dateString)
-    
-    dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-    dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-    dateFormatter.timeZone = NSTimeZone.localTimeZone()
-    dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(date!)
-  }
-  
-  func formatTimeRange(from: String, to: String) -> String {
-    return "\(formatShortTimeToLocalizedTime(from)) - \(formatShortTimeToLocalizedTime(to))"
-  }
-  
-  func formatShortTimeToLocalizedTime(timeString: String) -> String {
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "HH:mm"
-    let time = dateFormatter.dateFromString(timeString)
-    
-    dateFormatter.dateStyle = NSDateFormatterStyle.NoStyle
-    dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-    dateFormatter.timeZone = NSTimeZone.localTimeZone()
-    dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(time!)
+    return asignacionesPorFechas[section].fechaFormateada()
   }
 }
 

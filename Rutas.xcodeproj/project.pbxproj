@@ -82,9 +82,9 @@
 			children = (
 				323137D01D286CD200A67C18 /* FirstViewController.swift */,
 				323137D21D286CD200A67C18 /* SecondViewController.swift */,
-				323137FB1D33A09D00A67C18 /* MapViewController.swift */,
 				323137E41D287CFD00A67C18 /* HomeTableViewController.swift */,
 				323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */,
+				323137FB1D33A09D00A67C18 /* MapViewController.swift */,
 				323137D41D286CD200A67C18 /* Main.storyboard */,
 				323137E61D288AFF00A67C18 /* Resources */,
 				323137E91D288FD200A67C18 /* Data Objects */,

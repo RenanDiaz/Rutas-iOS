@@ -155,7 +155,7 @@
                                         <connections>
                                             <outlet property="subtitleLabel" destination="nTC-NH-Khu" id="hdr-2i-4hK"/>
                                             <outlet property="titleLabel" destination="gGI-70-VmL" id="FGg-oT-A89"/>
-                                            <segue destination="kkh-hO-Wgs" kind="show" id="Hu5-th-Y4E"/>
+                                            <segue destination="kkh-hO-Wgs" kind="show" identifier="ShowMapSegue" id="Hu5-th-Y4E"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -200,10 +200,10 @@
             </objects>
             <point key="canvasLocation" x="2307" y="-330"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="YTK-X3-YrV">
             <objects>
-                <viewController id="kkh-hO-Wgs" sceneMemberID="viewController">
+                <viewController id="kkh-hO-Wgs" customClass="MapViewController" customModule="Rutas" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PO7-6o-yfS"/>
                         <viewControllerLayoutGuide type="bottom" id="w7e-ye-xEL"/>
@@ -211,8 +211,35 @@
                     <view key="view" contentMode="scaleToFill" id="Y2g-5S-Vjj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SWV-W6-zGZ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="443"/>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ed8-Qg-JNk">
+                                <rect key="frame" x="185" y="515" width="230" height="29"/>
+                                <segments>
+                                    <segment title="Estándard"/>
+                                    <segment title="Satélite"/>
+                                    <segment title="Híbrido"/>
+                                </segments>
+                                <connections>
+                                    <action selector="setMapType:" destination="kkh-hO-Wgs" eventType="valueChanged" id="0WO-ny-Hl4"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SWV-W6-zGZ" firstAttribute="leading" secondItem="Y2g-5S-Vjj" secondAttribute="leadingMargin" constant="-20" id="7lt-Vn-Iuj"/>
+                            <constraint firstItem="Ed8-Qg-JNk" firstAttribute="centerX" secondItem="Y2g-5S-Vjj" secondAttribute="centerX" id="9P8-fN-Z15"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SWV-W6-zGZ" secondAttribute="trailing" constant="-20" id="FRk-Kt-Gze"/>
+                            <constraint firstItem="SWV-W6-zGZ" firstAttribute="top" secondItem="PO7-6o-yfS" secondAttribute="bottom" id="M6v-Qs-ojK"/>
+                            <constraint firstItem="Ed8-Qg-JNk" firstAttribute="top" secondItem="SWV-W6-zGZ" secondAttribute="bottom" constant="8" id="UVd-jH-eSZ"/>
+                            <constraint firstItem="w7e-ye-xEL" firstAttribute="top" secondItem="Ed8-Qg-JNk" secondAttribute="bottom" constant="8" id="fJ5-iM-ZCt"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="SWV-W6-zGZ" id="YNK-WS-Zym"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bi2-YI-go3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
