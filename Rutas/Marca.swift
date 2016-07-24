@@ -1,6 +1,6 @@
 //
-//  Ruta.swift
-//  Rutas
+//  Marca.swift
+//  Marca
 //
 //  Created by Renán Díaz Reyes on 7/2/16.
 //  Copyright © 2016 Renán Díaz Reyes. All rights reserved.

@@ -10,9 +10,7 @@ import UIKit
 
 class RouteInfoController: UIViewController {
   
-  // 1
   let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  // 2
   var dataTask: NSURLSessionDataTask?
   
   @IBOutlet weak var origenLabel: UILabel!

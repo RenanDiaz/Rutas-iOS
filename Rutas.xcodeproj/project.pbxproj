@@ -24,6 +24,7 @@
 		323137F81D30FC3A00A67C18 /* AsignacionesPorFecha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */; };
 		323137FA1D339FA700A67C18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323137F91D339FA700A67C18 /* MapKit.framework */; };
 		323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137FB1D33A09D00A67C18 /* MapViewController.swift */; };
+		323137FE1D34322C00A67C18 /* Ubicacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137FD1D34322C00A67C18 /* Ubicacion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		323137F71D30FC3A00A67C18 /* AsignacionesPorFecha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsignacionesPorFecha.swift; sourceTree = "<group>"; };
 		323137F91D339FA700A67C18 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		323137FB1D33A09D00A67C18 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		323137FD1D34322C00A67C18 /* Ubicacion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ubicacion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				323137EF1D30CFA100A67C18 /* Asignacion.swift */,
 				323137F31D30D28F00A67C18 /* Marca.swift */,
 				323137F11D30D0AB00A67C18 /* Vehiculo.swift */,
+				323137FD1D34322C00A67C18 /* Ubicacion.swift */,
 			);
 			name = "Data Objects";
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */,
 				323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */,
 				323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */,
+				323137FE1D34322C00A67C18 /* Ubicacion.swift in Sources */,
 				323137D31D286CD200A67C18 /* SecondViewController.swift in Sources */,
 				323137F21D30D0AB00A67C18 /* Vehiculo.swift in Sources */,
 				323137CF1D286CD200A67C18 /* AppDelegate.swift in Sources */,
