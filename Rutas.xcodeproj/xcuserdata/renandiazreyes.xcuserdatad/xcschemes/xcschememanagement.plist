@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Rutas-Watch (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Rutas-Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Rutas.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>323137CA1D286CD200A67C18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>32D2A15D1D463F71009AEF3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

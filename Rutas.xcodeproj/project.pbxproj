@@ -25,7 +25,57 @@
 		323137FA1D339FA700A67C18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323137F91D339FA700A67C18 /* MapKit.framework */; };
 		323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137FB1D33A09D00A67C18 /* MapViewController.swift */; };
 		323137FE1D34322C00A67C18 /* Ubicacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137FD1D34322C00A67C18 /* Ubicacion.swift */; };
+		32D2A1621D463F71009AEF3C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D2A1601D463F71009AEF3C /* Interface.storyboard */; };
+		32D2A1641D463F71009AEF3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32D2A1631D463F71009AEF3C /* Assets.xcassets */; };
+		32D2A16B1D463F71009AEF3C /* Rutas-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32D2A16A1D463F71009AEF3C /* Rutas-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32D2A1721D463F71009AEF3C /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D2A1711D463F71009AEF3C /* InterfaceController.swift */; };
+		32D2A1741D463F71009AEF3C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D2A1731D463F71009AEF3C /* ExtensionDelegate.swift */; };
+		32D2A1761D463F71009AEF3C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D2A1751D463F71009AEF3C /* NotificationController.swift */; };
+		32D2A1781D463F71009AEF3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32D2A1771D463F71009AEF3C /* Assets.xcassets */; };
+		32D2A17C1D463F71009AEF3C /* Rutas-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 32D2A15E1D463F71009AEF3C /* Rutas-Watch.app */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32D2A16C1D463F71009AEF3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 323137C31D286CD200A67C18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D2A1691D463F71009AEF3C;
+			remoteInfo = "Rutas-Watch Extension";
+		};
+		32D2A17A1D463F71009AEF3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 323137C31D286CD200A67C18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D2A15D1D463F71009AEF3C;
+			remoteInfo = "Rutas-Watch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32D2A1821D463F72009AEF3C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				32D2A16B1D463F71009AEF3C /* Rutas-Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32D2A1841D463F72009AEF3C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				32D2A17C1D463F71009AEF3C /* Rutas-Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		323137CB1D286CD200A67C18 /* Rutas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rutas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +98,17 @@
 		323137F91D339FA700A67C18 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		323137FB1D33A09D00A67C18 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		323137FD1D34322C00A67C18 /* Ubicacion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ubicacion.swift; sourceTree = "<group>"; };
+		32D2A15E1D463F71009AEF3C /* Rutas-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rutas-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32D2A1611D463F71009AEF3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		32D2A1631D463F71009AEF3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32D2A1651D463F71009AEF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32D2A16A1D463F71009AEF3C /* Rutas-Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Rutas-Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32D2A1701D463F71009AEF3C /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		32D2A1711D463F71009AEF3C /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		32D2A1731D463F71009AEF3C /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		32D2A1751D463F71009AEF3C /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		32D2A1771D463F71009AEF3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32D2A1791D463F71009AEF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +120,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		32D2A1671D463F71009AEF3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -67,6 +135,8 @@
 			children = (
 				323137F91D339FA700A67C18 /* MapKit.framework */,
 				323137CD1D286CD200A67C18 /* Rutas */,
+				32D2A15F1D463F71009AEF3C /* Rutas-Watch */,
+				32D2A16E1D463F71009AEF3C /* Rutas-Watch Extension */,
 				323137CC1D286CD200A67C18 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				323137CB1D286CD200A67C18 /* Rutas.app */,
+				32D2A15E1D463F71009AEF3C /* Rutas-Watch.app */,
+				32D2A16A1D463F71009AEF3C /* Rutas-Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,6 +200,37 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		32D2A15F1D463F71009AEF3C /* Rutas-Watch */ = {
+			isa = PBXGroup;
+			children = (
+				32D2A1601D463F71009AEF3C /* Interface.storyboard */,
+				32D2A1631D463F71009AEF3C /* Assets.xcassets */,
+				32D2A1651D463F71009AEF3C /* Info.plist */,
+			);
+			path = "Rutas-Watch";
+			sourceTree = "<group>";
+		};
+		32D2A16E1D463F71009AEF3C /* Rutas-Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				32D2A1711D463F71009AEF3C /* InterfaceController.swift */,
+				32D2A1731D463F71009AEF3C /* ExtensionDelegate.swift */,
+				32D2A1751D463F71009AEF3C /* NotificationController.swift */,
+				32D2A1771D463F71009AEF3C /* Assets.xcassets */,
+				32D2A1791D463F71009AEF3C /* Info.plist */,
+				32D2A16F1D463F71009AEF3C /* Supporting Files */,
+			);
+			path = "Rutas-Watch Extension";
+			sourceTree = "<group>";
+		};
+		32D2A16F1D463F71009AEF3C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				32D2A1701D463F71009AEF3C /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,15 +241,51 @@
 				323137C71D286CD200A67C18 /* Sources */,
 				323137C81D286CD200A67C18 /* Frameworks */,
 				323137C91D286CD200A67C18 /* Resources */,
+				32D2A1841D463F72009AEF3C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				32D2A17B1D463F71009AEF3C /* PBXTargetDependency */,
 			);
 			name = Rutas;
 			productName = Rutas;
 			productReference = 323137CB1D286CD200A67C18 /* Rutas.app */;
 			productType = "com.apple.product-type.application";
+		};
+		32D2A15D1D463F71009AEF3C /* Rutas-Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32D2A1831D463F72009AEF3C /* Build configuration list for PBXNativeTarget "Rutas-Watch" */;
+			buildPhases = (
+				32D2A15C1D463F71009AEF3C /* Resources */,
+				32D2A1821D463F72009AEF3C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32D2A16D1D463F71009AEF3C /* PBXTargetDependency */,
+			);
+			name = "Rutas-Watch";
+			productName = "Rutas-Watch";
+			productReference = 32D2A15E1D463F71009AEF3C /* Rutas-Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		32D2A1691D463F71009AEF3C /* Rutas-Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32D2A1811D463F72009AEF3C /* Build configuration list for PBXNativeTarget "Rutas-Watch Extension" */;
+			buildPhases = (
+				32D2A1661D463F71009AEF3C /* Sources */,
+				32D2A1671D463F71009AEF3C /* Frameworks */,
+				32D2A1681D463F71009AEF3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rutas-Watch Extension";
+			productName = "Rutas-Watch Extension";
+			productReference = 32D2A16A1D463F71009AEF3C /* Rutas-Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -161,6 +300,13 @@
 					323137CA1D286CD200A67C18 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = W5SWU29W6D;
+					};
+					32D2A15D1D463F71009AEF3C = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = W5SWU29W6D;
+					};
+					32D2A1691D463F71009AEF3C = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
@@ -178,6 +324,8 @@
 			projectRoot = "";
 			targets = (
 				323137CA1D286CD200A67C18 /* Rutas */,
+				32D2A15D1D463F71009AEF3C /* Rutas-Watch */,
+				32D2A1691D463F71009AEF3C /* Rutas-Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -190,6 +338,23 @@
 				323137DB1D286CD200A67C18 /* LaunchScreen.storyboard in Resources */,
 				323137D81D286CD200A67C18 /* Assets.xcassets in Resources */,
 				323137D61D286CD200A67C18 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32D2A15C1D463F71009AEF3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D2A1641D463F71009AEF3C /* Assets.xcassets in Resources */,
+				32D2A1621D463F71009AEF3C /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32D2A1681D463F71009AEF3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D2A1781D463F71009AEF3C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +382,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		32D2A1661D463F71009AEF3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D2A1761D463F71009AEF3C /* NotificationController.swift in Sources */,
+				32D2A1741D463F71009AEF3C /* ExtensionDelegate.swift in Sources */,
+				32D2A1721D463F71009AEF3C /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		32D2A16D1D463F71009AEF3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32D2A1691D463F71009AEF3C /* Rutas-Watch Extension */;
+			targetProxy = 32D2A16C1D463F71009AEF3C /* PBXContainerItemProxy */;
+		};
+		32D2A17B1D463F71009AEF3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32D2A15D1D463F71009AEF3C /* Rutas-Watch */;
+			targetProxy = 32D2A17A1D463F71009AEF3C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		323137D41D286CD200A67C18 /* Main.storyboard */ = {
@@ -234,6 +422,14 @@
 				323137DA1D286CD200A67C18 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		32D2A1601D463F71009AEF3C /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32D2A1611D463F71009AEF3C /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -352,6 +548,70 @@
 			};
 			name = Release;
 		};
+		32D2A17D1D463F71009AEF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Rutas_Watch_Extension;
+				INFOPLIST_FILE = "Rutas-Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		32D2A17E1D463F71009AEF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Rutas_Watch_Extension;
+				INFOPLIST_FILE = "Rutas-Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		32D2A17F1D463F71009AEF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Rutas-Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		32D2A1801D463F71009AEF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Rutas-Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -372,6 +632,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		32D2A1811D463F72009AEF3C /* Build configuration list for PBXNativeTarget "Rutas-Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D2A17F1D463F71009AEF3C /* Debug */,
+				32D2A1801D463F71009AEF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		32D2A1831D463F72009AEF3C /* Build configuration list for PBXNativeTarget "Rutas-Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D2A17D1D463F71009AEF3C /* Debug */,
+				32D2A17E1D463F71009AEF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
