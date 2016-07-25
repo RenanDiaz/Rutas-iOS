@@ -220,7 +220,13 @@ extension MapViewController: CLLocationManagerDelegate {
           print("reverse geocode error: \(error.debugDescription)");
         } else {
           let placemark = placemarks!.last! as CLPlacemark
-          self.ultimaUbicacion.establecerDireccion("\(placemark.thoroughfare!), \(placemark.locality!)")
+          if placemark.locality != nil {
+            if placemark.thoroughfare != nil {
+              self.ultimaUbicacion.establecerDireccion("\(placemark.thoroughfare!), \(placemark.locality!)")
+            } else {
+              self.ultimaUbicacion.establecerDireccion("\(placemark.locality!)")
+            }
+          }
         }
       })
   }

@@ -238,14 +238,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf3-JF-HhE">
-                                <rect key="frame" x="197" y="101" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf3-JF-HhE">
+                                <rect key="frame" x="197" y="101" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvq-PI-hPl">
-                                <rect key="frame" x="197" y="72" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvq-PI-hPl">
+                                <rect key="frame" x="197" y="72" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -292,36 +292,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bwR-pP-Fox">
-                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" id="0AZ-GL-bcC">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PrototypeCell" id="1TX-Yu-QyT">
-                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1TX-Yu-QyT" id="o7a-Us-rMc">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
-                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vj-K5-ytD">
+                                <rect key="frame" x="270" y="128" width="61" height="30"/>
+                                <state key="normal" title="Empezar"/>
+                                <connections>
+                                    <action selector="tappedButton:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Hf4-fO-woy"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2UG-Ja-YOj">
+                                <rect key="frame" x="0.0" y="166" width="600" height="385"/>
+                            </mapView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWb-74-Bd6">
+                                <rect key="frame" x="0.0" y="20" width="600" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="tOm-BY-EIG"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="bwR-pP-Fox" secondAttribute="trailing" constant="-20" id="HBZ-Vd-fDa"/>
-                            <constraint firstItem="bwR-pP-Fox" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="HYF-hQ-1ms"/>
-                            <constraint firstItem="bwR-pP-Fox" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="LnM-JL-0a0"/>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="bwR-pP-Fox" secondAttribute="bottom" id="j8p-kB-FHz"/>
+                            <constraint firstItem="xWb-74-Bd6" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="0MC-hy-TlR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2UG-Ja-YOj" secondAttribute="trailing" constant="-20" id="3Na-0W-1bG"/>
+                            <constraint firstItem="xWb-74-Bd6" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="NU9-1K-t59"/>
+                            <constraint firstItem="8vj-K5-ytD" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="O2c-QA-4cl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xWb-74-Bd6" secondAttribute="trailing" constant="-20" id="Pbc-1Q-zBY"/>
+                            <constraint firstItem="2UG-Ja-YOj" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="Spc-SS-QIO"/>
+                            <constraint firstItem="2UG-Ja-YOj" firstAttribute="top" secondItem="8vj-K5-ytD" secondAttribute="bottom" constant="8" id="eKb-kt-Idh"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="2UG-Ja-YOj" secondAttribute="bottom" id="hYe-Zu-cll"/>
+                            <constraint firstItem="8vj-K5-ytD" firstAttribute="top" secondItem="xWb-74-Bd6" secondAttribute="bottom" constant="8" id="jmI-RF-isn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="boton" destination="8vj-K5-ytD" id="SCi-6A-9qU"/>
+                        <outlet property="mapView" destination="2UG-Ja-YOj" id="b1B-Ce-Xbg"/>
+                        <outlet property="picker" destination="xWb-74-Bd6" id="yL8-hS-uE4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
