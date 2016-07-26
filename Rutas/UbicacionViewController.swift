@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  UbicacionViewController.swift
 //  Rutas
 //
 //  Created by Renán Díaz Reyes on 7/2/16.
@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SecondViewController: UIViewController {
+class UbicacionViewController: UIViewController {
   
   let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
   var dataTask: NSURLSessionDataTask?
@@ -53,7 +53,7 @@ class SecondViewController: UIViewController {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones")
+    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy")
     
     dataTask = defaultSession.dataTaskWithURL(url!) {
       data, response, error in
@@ -79,7 +79,7 @@ class SecondViewController: UIViewController {
     do {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
-        if let array: AnyObject = response["rutasAsignadas"] {
+        if let array: AnyObject = response["asignaciones"] {
           for diccionarioDeAsignacion in array as! [AnyObject] {
             if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
               
@@ -180,7 +180,7 @@ class SecondViewController: UIViewController {
   }
 }
 
-extension SecondViewController: UIPickerViewDataSource {
+extension UbicacionViewController: UIPickerViewDataSource {
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     return 1
@@ -191,7 +191,7 @@ extension SecondViewController: UIPickerViewDataSource {
   }
 }
 
-extension SecondViewController: UIPickerViewDelegate {
+extension UbicacionViewController: UIPickerViewDelegate {
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     
   }
@@ -202,7 +202,7 @@ extension SecondViewController: UIPickerViewDelegate {
   }
 }
 
-extension SecondViewController: CLLocationManagerDelegate {
+extension UbicacionViewController: CLLocationManagerDelegate {
   
   func getCurrentLocation() {
     locationManager.requestWhenInUseAuthorization()

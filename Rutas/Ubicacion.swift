@@ -12,18 +12,16 @@ class Ubicacion: NSObject, MKAnnotation{
   var title: String?
   var id: Int?
   var fechahora: NSDate?
-  var vehiculo: Vehiculo?
-  var ruta: Ruta?
+  var asignacion: Asignacion?
   var subtitle: String?
   var coordinate: CLLocationCoordinate2D
   
-  init(id: Int?, fechahora: Double?, vehiculo: Vehiculo?, ruta: Ruta?, coordinate: CLLocationCoordinate2D) {
+  init(id: Int?, fechahora: Double?, asignacion: Asignacion?, coordinate: CLLocationCoordinate2D) {
     self.id = id
     self.fechahora = NSDate(timeIntervalSince1970: fechahora!)
-    self.vehiculo = vehiculo
-    self.ruta = ruta
+    self.asignacion = asignacion
     self.coordinate = coordinate
-    self.title = vehiculo!.nombreCorto!
+    self.title = asignacion!.vehiculo!.nombreCorto!
     super.init()
   }
   

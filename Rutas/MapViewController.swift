@@ -64,7 +64,7 @@ class MapViewController: UIViewController {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/ultimo-recorrido?placa=\(asignacion.vehiculo!.placa!)&ruta=\(asignacion.ruta!.id!)")
+    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/ultimo-recorrido?asignacion=\(asignacion.id!)")
     
     dataTask = defaultSession.dataTaskWithURL(url!) {
       data, response, error in
@@ -117,33 +117,47 @@ class MapViewController: UIViewController {
   func agregarUbicaciones(objetoUbicacion: AnyObject, ultima: Bool) {
     if let id = objetoUbicacion["id"] as? Int {
       
-      var vehiculo = Vehiculo()
-      if let objetoVehiculo: AnyObject = objetoUbicacion["vehiculo"] {
-        if let placa = objetoVehiculo["placa"] as? String {
-          var marca = Marca()
-          if let objetoMarca: AnyObject = objetoVehiculo["marca"] {
-            if let id = objetoMarca["id"] as? Int {
-              let nombre = objetoMarca["nombre"] as? String
-              marca = Marca(id: id, nombre: nombre)
+      var asignacion = Asignacion()
+      if let diccionarioDeAsignacion = objetoUbicacion["asignacion"] as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
+        
+        var vehiculo = Vehiculo()
+        if let objetoVehiculo: AnyObject = diccionarioDeAsignacion["vehiculo"] {
+          if let placa = objetoVehiculo["placa"] as? String {
+            var marca = Marca()
+            if let objetoMarca: AnyObject = objetoVehiculo["marca"] {
+              if let id = objetoMarca["id"] as? Int {
+                let nombre = objetoMarca["nombre"] as? String
+                marca = Marca(id: id, nombre: nombre)
+              }
             }
+            let modelo = objetoVehiculo["modelo"] as? String
+            let anno = objetoVehiculo["anno"] as? Int
+            let tipo = objetoVehiculo["tipo"] as? String
+            let nombre = objetoVehiculo["nombre"] as? String
+            let nombreCorto = objetoVehiculo["nombreCorto"] as? String
+            vehiculo = Vehiculo(placa: placa, marca: marca, modelo: modelo, anno: anno, tipo: tipo, nombre: nombre, nombreCorto: nombreCorto)
           }
-          let modelo = objetoVehiculo["modelo"] as? String
-          let anno = objetoVehiculo["anno"] as? Int
-          let tipo = objetoVehiculo["tipo"] as? String
-          let nombre = objetoVehiculo["nombre"] as? String
-          let nombreCorto = objetoVehiculo["nombreCorto"] as? String
-          vehiculo = Vehiculo(placa: placa, marca: marca, modelo: modelo, anno: anno, tipo: tipo, nombre: nombre, nombreCorto: nombreCorto)
         }
-      }
-      
-      var rutaDeLaAsignacion = Ruta()
-      if let objetoRuta: AnyObject = objetoUbicacion["ruta"] {
-        if let idRuta = objetoRuta["id"] as? Int {
-          let origen = objetoRuta["origen"] as? String
-          let destino = objetoRuta["destino"] as? String
-          let descripcion = objetoRuta["descripcion"] as? String
-          rutaDeLaAsignacion = Ruta(id: idRuta, origen: origen, destino: destino, descripcion: descripcion)
+        
+        var rutaDeLaAsignacion = Ruta()
+        if let objetoRuta: AnyObject = diccionarioDeAsignacion["ruta"] {
+          if let idRuta = objetoRuta["id"] as? Int {
+            let origen = objetoRuta["origen"] as? String
+            let destino = objetoRuta["destino"] as? String
+            let descripcion = objetoRuta["descripcion"] as? String
+            rutaDeLaAsignacion = Ruta(id: idRuta, origen: origen, destino: destino, descripcion: descripcion)
+          }
         }
+        
+        let fechahoraDePartida = diccionarioDeAsignacion["fechahoraDePartida"] as? Double
+        let fechahoraDeLlegada = diccionarioDeAsignacion["fechahoraDeLlegada"] as? Double
+        let descripcion = diccionarioDeAsignacion["descripcion"] as? String
+        let fechaDePartida = diccionarioDeAsignacion["fechaDePartida"] as? String
+        let horaDePartida = diccionarioDeAsignacion["horaDePartida"] as? String
+        let fechaDeLlegada = diccionarioDeAsignacion["fechaDeLlegada"] as? String
+        let horaDeLlegada = diccionarioDeAsignacion["horaDeLlegada"] as? String
+        let rangoDeHoras = diccionarioDeAsignacion["rangoDeHoras"] as? String
+        asignacion = Asignacion(id: id, vehiculo: vehiculo, ruta: rutaDeLaAsignacion, fechahoraDePartida: fechahoraDePartida, fechahoraDeLlegada: fechahoraDeLlegada, descripcion: descripcion, fechaDePartida: fechaDePartida, horaDePartida: horaDePartida, fechaDeLlegada: fechaDeLlegada, horaDeLlegada: horaDeLlegada, rangoDeHoras: rangoDeHoras)
       }
       
       let fechahora = objetoUbicacion["fechahora"] as? Double
@@ -154,7 +168,7 @@ class MapViewController: UIViewController {
       let longitude = CLLocationDegrees.init(longitud!)
       let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
       
-      let ubicacion = Ubicacion(id: id, fechahora: fechahora, vehiculo: vehiculo, ruta: rutaDeLaAsignacion, coordinate: coordinate);
+      let ubicacion = Ubicacion(id: id, fechahora: fechahora, asignacion: asignacion, coordinate: coordinate);
       if ultima {
         ultimaUbicacion = ubicacion
         setAddress(CLLocation(latitude: latitude, longitude: longitude))

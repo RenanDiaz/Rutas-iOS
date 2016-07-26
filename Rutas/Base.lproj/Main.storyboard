@@ -9,7 +9,7 @@
         <!--Rutas-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="Rutas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="RutasViewController" customModule="Rutas" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -280,10 +280,10 @@
             </objects>
             <point key="canvasLocation" x="3047" y="-330"/>
         </scene>
-        <!--Second-->
+        <!--Ubicación-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Rutas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="UbicacionViewController" customModule="Rutas" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -322,7 +322,7 @@
                             <constraint firstItem="8vj-K5-ytD" firstAttribute="top" secondItem="xWb-74-Bd6" secondAttribute="bottom" constant="8" id="jmI-RF-isn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Ubicación" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="boton" destination="8vj-K5-ytD" id="SCi-6A-9qU"/>
                         <outlet property="mapView" destination="2UG-Ja-YOj" id="b1B-Ce-Xbg"/>
@@ -352,11 +352,11 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--First-->
+        <!--Rutas-->
         <scene sceneID="23N-iF-V4U">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RzQ-29-XM5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Rutas" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2a3-4K-iSr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

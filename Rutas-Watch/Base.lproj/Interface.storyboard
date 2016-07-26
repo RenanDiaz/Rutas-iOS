@@ -8,7 +8,17 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Rutas_Watch" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Rutas_Watch" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="pG7-0j-EsY">
+                            <items>
+                                <tableRow identifier="RutasRow" id="Prm-9H-fgD">
+                                    <group key="rootItem" width="1" alignment="left" id="Y0O-AL-44z"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>

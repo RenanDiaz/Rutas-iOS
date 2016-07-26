@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  RutasViewController.swift
 //  Rutas
 //
 //  Created by Renán Díaz Reyes on 7/2/16.
@@ -8,11 +8,9 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class RutasViewController: UIViewController {
   
-  // 1
   let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  // 2
   var dataTask: NSURLSessionDataTask?
   
   @IBOutlet weak var tableView: UITableView!
@@ -127,7 +125,7 @@ class FirstViewController: UIViewController {
 
 // MARK: UISearchBarDelegate
 
-extension FirstViewController: UISearchBarDelegate {
+extension RutasViewController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
     
@@ -166,7 +164,7 @@ extension FirstViewController: UISearchBarDelegate {
 
 // MARK: UITableViewDataSource
 
-extension FirstViewController: UITableViewDataSource {
+extension RutasViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return resultados.count
@@ -204,7 +202,7 @@ extension FirstViewController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension FirstViewController: UITableViewDelegate {
+extension RutasViewController: UITableViewDelegate {
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     return 62.0
@@ -216,7 +214,7 @@ extension FirstViewController: UITableViewDelegate {
   }
 }
 
-extension FirstViewController: UIScrollViewDelegate {
+extension RutasViewController: UIScrollViewDelegate {
   
   func scrollViewWillBeginDragging(scrollView: UIScrollView) {
     searchBar.resignFirstResponder()

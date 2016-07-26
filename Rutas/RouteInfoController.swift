@@ -44,7 +44,7 @@ class RouteInfoController: UIViewController {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones?ruta=\(ruta.id!)")
+    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy?ruta=\(ruta.id!)")
     
     dataTask = defaultSession.dataTaskWithURL(url!) {
       data, response, error in
@@ -70,7 +70,7 @@ class RouteInfoController: UIViewController {
     do {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
-        if let array: AnyObject = response["rutasAsignadas"] {
+        if let array: AnyObject = response["asignaciones"] {
           for diccionarioDeAsignacion in array as! [AnyObject] {
             if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
               

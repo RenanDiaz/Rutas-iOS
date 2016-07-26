@@ -8,12 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		323137CF1D286CD200A67C18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137CE1D286CD200A67C18 /* AppDelegate.swift */; };
-		323137D11D286CD200A67C18 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137D01D286CD200A67C18 /* FirstViewController.swift */; };
-		323137D31D286CD200A67C18 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137D21D286CD200A67C18 /* SecondViewController.swift */; };
+		323137D11D286CD200A67C18 /* RutasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137D01D286CD200A67C18 /* RutasViewController.swift */; };
+		323137D31D286CD200A67C18 /* UbicacionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137D21D286CD200A67C18 /* UbicacionViewController.swift */; };
 		323137D61D286CD200A67C18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 323137D41D286CD200A67C18 /* Main.storyboard */; };
 		323137D81D286CD200A67C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 323137D71D286CD200A67C18 /* Assets.xcassets */; };
 		323137DB1D286CD200A67C18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 323137D91D286CD200A67C18 /* LaunchScreen.storyboard */; };
-		323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137E41D287CFD00A67C18 /* HomeTableViewController.swift */; };
 		323137E81D288FCE00A67C18 /* Ruta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137E71D288FCE00A67C18 /* Ruta.swift */; };
 		323137EB1D2BE5FE00A67C18 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137EA1D2BE5FE00A67C18 /* RouteCell.swift */; };
 		323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */; };
@@ -80,13 +79,12 @@
 /* Begin PBXFileReference section */
 		323137CB1D286CD200A67C18 /* Rutas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rutas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		323137CE1D286CD200A67C18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		323137D01D286CD200A67C18 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		323137D21D286CD200A67C18 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		323137D01D286CD200A67C18 /* RutasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutasViewController.swift; sourceTree = "<group>"; };
+		323137D21D286CD200A67C18 /* UbicacionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbicacionViewController.swift; sourceTree = "<group>"; };
 		323137D51D286CD200A67C18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		323137D71D286CD200A67C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		323137DA1D286CD200A67C18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		323137DC1D286CD200A67C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		323137E41D287CFD00A67C18 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		323137E71D288FCE00A67C18 /* Ruta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ruta.swift; sourceTree = "<group>"; };
 		323137EA1D2BE5FE00A67C18 /* RouteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
 		323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteInfoController.swift; sourceTree = "<group>"; };
@@ -154,9 +152,8 @@
 		323137CD1D286CD200A67C18 /* Rutas */ = {
 			isa = PBXGroup;
 			children = (
-				323137D01D286CD200A67C18 /* FirstViewController.swift */,
-				323137D21D286CD200A67C18 /* SecondViewController.swift */,
-				323137E41D287CFD00A67C18 /* HomeTableViewController.swift */,
+				323137D01D286CD200A67C18 /* RutasViewController.swift */,
+				323137D21D286CD200A67C18 /* UbicacionViewController.swift */,
 				323137ED1D2FDB1800A67C18 /* RouteInfoController.swift */,
 				323137FB1D33A09D00A67C18 /* MapViewController.swift */,
 				323137D41D286CD200A67C18 /* Main.storyboard */,
@@ -307,6 +304,7 @@
 					};
 					32D2A1691D463F71009AEF3C = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = W5SWU29W6D;
 					};
 				};
 			};
@@ -370,14 +368,13 @@
 				323137F01D30CFA200A67C18 /* Asignacion.swift in Sources */,
 				323137F41D30D28F00A67C18 /* Marca.swift in Sources */,
 				323137EE1D2FDB1800A67C18 /* RouteInfoController.swift in Sources */,
-				323137E51D287CFD00A67C18 /* HomeTableViewController.swift in Sources */,
 				323137FC1D33A09D00A67C18 /* MapViewController.swift in Sources */,
 				323137FE1D34322C00A67C18 /* Ubicacion.swift in Sources */,
-				323137D31D286CD200A67C18 /* SecondViewController.swift in Sources */,
+				323137D31D286CD200A67C18 /* UbicacionViewController.swift in Sources */,
 				323137F21D30D0AB00A67C18 /* Vehiculo.swift in Sources */,
 				323137CF1D286CD200A67C18 /* AppDelegate.swift in Sources */,
 				323137F61D30E14A00A67C18 /* AsignationCell.swift in Sources */,
-				323137D11D286CD200A67C18 /* FirstViewController.swift in Sources */,
+				323137D11D286CD200A67C18 /* RutasViewController.swift in Sources */,
 				323137EB1D2BE5FE00A67C18 /* RouteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -587,10 +584,13 @@
 		32D2A17F1D463F71009AEF3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Rutas-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -601,10 +601,13 @@
 		32D2A1801D463F71009AEF3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Rutas-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -640,6 +643,7 @@
 				32D2A1801D463F71009AEF3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32D2A1831D463F72009AEF3C /* Build configuration list for PBXNativeTarget "Rutas-Watch" */ = {
 			isa = XCConfigurationList;
@@ -648,6 +652,7 @@
 				32D2A17E1D463F71009AEF3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
