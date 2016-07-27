@@ -205,7 +205,7 @@ extension MapViewController: CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    mapView.showsUserLocation = (status == .AuthorizedWhenInUse)
+    mapView.showsUserLocation = (status == .AuthorizedAlways)
   }
   
   func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {

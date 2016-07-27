@@ -22,10 +22,13 @@ class UbicacionViewController: UIViewController {
   let locationManager = CLLocationManager()
   let METERS_PER_MILE: CDouble = 1609.344
   var debeEnviar = false
+  var points = [CLLocationCoordinate2D]()
+  var polyline = MKPolyline()
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     locationManager.requestWhenInUseAuthorization()
+    mapView.delegate = self
     picker.dataSource = self
     picker.delegate = self
     cargarDatos()
@@ -149,11 +152,9 @@ class UbicacionViewController: UIViewController {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     let asignacion = asignaciones[picker.selectedRowInComponent(0)]
-    let placa = asignacion.vehiculo!.placa!
-    let ruta = asignacion.ruta!.id!
     let fecha = String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
     
-    let urlString = "http://190.141.120.200:8080/Rutas/ubicacion/agregar/\(placa)?fecha=\(fecha)&ruta=\(ruta)&latitud=\(latitud)&longitud=\(longitud)"
+    let urlString = "http://190.141.120.200:8080/Rutas/ubicacion/agregar?fecha=\(fecha)&asignacion=\(asignacion.id!)&latitud=\(latitud)&longitud=\(longitud)"
 //    print(urlString)
     
     let url = NSURL(string: urlString)
@@ -205,7 +206,7 @@ extension UbicacionViewController: UIPickerViewDelegate {
 extension UbicacionViewController: CLLocationManagerDelegate {
   
   func getCurrentLocation() {
-    locationManager.requestWhenInUseAuthorization()
+    locationManager.requestAlwaysAuthorization()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.startUpdatingLocation()
@@ -216,7 +217,7 @@ extension UbicacionViewController: CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    mapView.showsUserLocation = (status == .AuthorizedWhenInUse)
+    mapView.showsUserLocation = (status == .AuthorizedAlways)
   }
   
   func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
@@ -228,6 +229,30 @@ extension UbicacionViewController: CLLocationManagerDelegate {
     mapView.setRegion(viewRegion, animated: true)
     if debeEnviar {
       enviarUbicacion(zoomLocation.latitude, longitud: zoomLocation.longitude)
+      points.append(zoomLocation)
+      trazarRecorrido()
     }
+  }
+  
+  func trazarRecorrido() {
+    if mapView.overlays.count > 0 {
+      mapView.removeOverlay(polyline)
+    }
+    polyline = MKPolyline(coordinates: &points, count: points.count)
+    mapView.addOverlay(polyline)
+  }
+}
+
+extension UbicacionViewController: MKMapViewDelegate {
+  
+  func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    if overlay is MKPolyline {
+      let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+      polylineRenderer.strokeColor = UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.5)
+      polylineRenderer.lineWidth = 5
+      return polylineRenderer
+    }
+    
+    return MKPolylineRenderer()
   }
 }
