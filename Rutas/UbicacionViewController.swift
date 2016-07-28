@@ -44,6 +44,10 @@ class UbicacionViewController: UIViewController {
     debeEnviar = !debeEnviar
     if debeEnviar {
       boton.setTitle("Terminar", forState: UIControlState.Normal)
+      if mapView.overlays.count > 0 {
+        mapView.removeOverlay(polyline)
+        points.removeAll()
+      }
     } else {
       boton.setTitle("Empezar", forState: UIControlState.Normal)
     }
@@ -145,7 +149,7 @@ class UbicacionViewController: UIViewController {
     }
   }
 
-  func enviarUbicacion(latitud: CLLocationDegrees, longitud: CLLocationDegrees) {
+  func enviarUbicacion(latitud: CLLocationDegrees, longitud: CLLocationDegrees, altitud: CLLocationDistance) {
     if dataTask != nil {
       dataTask?.cancel()
     }
@@ -154,7 +158,7 @@ class UbicacionViewController: UIViewController {
     let asignacion = asignaciones[picker.selectedRowInComponent(0)]
     let fecha = String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
     
-    let urlString = "http://190.141.120.200:8080/Rutas/ubicacion/agregar?fecha=\(fecha)&asignacion=\(asignacion.id!)&latitud=\(latitud)&longitud=\(longitud)"
+    let urlString = "http://190.141.120.200:8080/Rutas/ubicacion/agregar?fecha=\(fecha)&asignacion=\(asignacion.id!)&latitud=\(latitud)&longitud=\(longitud)&altitud=\(altitud)"
 //    print(urlString)
     
     let url = NSURL(string: urlString)
@@ -228,7 +232,7 @@ extension UbicacionViewController: CLLocationManagerDelegate {
     let viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5 * METERS_PER_MILE, 0.5 * METERS_PER_MILE)
     mapView.setRegion(viewRegion, animated: true)
     if debeEnviar {
-      enviarUbicacion(zoomLocation.latitude, longitud: zoomLocation.longitude)
+      enviarUbicacion(zoomLocation.latitude, longitud: zoomLocation.longitude, altitud: newLocation.altitude)
       points.append(zoomLocation)
       trazarRecorrido()
     }
