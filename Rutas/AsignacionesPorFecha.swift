@@ -17,19 +17,19 @@ class AsignacionesPorFecha {
     self.asignaciones = [Asignacion]()
   }
   
-  func add(asignacion: Asignacion) {
+  func add(_ asignacion: Asignacion) {
     self.asignaciones.append(asignacion)
   }
   
   func fechaFormateada() -> String {
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
-    let date = dateFormatter.dateFromString(fecha)
+    let date = dateFormatter.date(from: fecha)
     
-    dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-    dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-    dateFormatter.timeZone = NSTimeZone.localTimeZone()
-    dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(date!)
+    dateFormatter.dateStyle = DateFormatter.Style.full
+    dateFormatter.timeStyle = DateFormatter.Style.none
+    dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+    dateFormatter.locale = Locale.current
+    return dateFormatter.string(from: date!)
   }
 }

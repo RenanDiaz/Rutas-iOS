@@ -297,14 +297,17 @@
 					323137CA1D286CD200A67C18 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = W5SWU29W6D;
+						LastSwiftMigration = 0820;
 					};
 					32D2A15D1D463F71009AEF3C = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = W5SWU29W6D;
+						LastSwiftMigration = 0820;
 					};
 					32D2A1691D463F71009AEF3C = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = W5SWU29W6D;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -528,6 +531,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -542,6 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdiaz.Rutas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -558,6 +563,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -576,6 +582,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -593,6 +600,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -610,6 +618,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};

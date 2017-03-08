@@ -11,8 +11,8 @@ import MapKit
 
 class UbicacionViewController: UIViewController {
   
-  let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  var dataTask: NSURLSessionDataTask?
+  let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+  var dataTask: URLSessionDataTask?
 
   @IBOutlet weak var picker: UIPickerView!
   @IBOutlet weak var boton: UIButton!
@@ -25,7 +25,7 @@ class UbicacionViewController: UIViewController {
   var points = [CLLocationCoordinate2D]()
   var polyline = MKPolyline()
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     locationManager.requestWhenInUseAuthorization()
     mapView.delegate = self
@@ -40,16 +40,16 @@ class UbicacionViewController: UIViewController {
     getCurrentLocation()
   }
 
-  @IBAction func tappedButton(sender: AnyObject) {
+  @IBAction func tappedButton(_ sender: AnyObject) {
     debeEnviar = !debeEnviar
     if debeEnviar {
-      boton.setTitle("Terminar", forState: UIControlState.Normal)
+      boton.setTitle("Terminar", for: UIControlState())
       if mapView.overlays.count > 0 {
-        mapView.removeOverlay(polyline)
+        mapView.remove(polyline)
         points.removeAll()
       }
     } else {
-      boton.setTitle("Empezar", forState: UIControlState.Normal)
+      boton.setTitle("Empezar", for: UIControlState())
     }
   }
   
@@ -58,37 +58,37 @@ class UbicacionViewController: UIViewController {
       dataTask?.cancel()
     }
     
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy")
+    let url = URL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy")
     
-    dataTask = defaultSession.dataTaskWithURL(url!) {
+    dataTask = defaultSession.dataTask(with: url!, completionHandler: {
       data, response, error in
       
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
       }
       
       if let error = error {
         print(error.localizedDescription)
-      } else if let httpResponse = response as? NSHTTPURLResponse {
+      } else if let httpResponse = response as? HTTPURLResponse {
         if httpResponse.statusCode == 200 {
           self.actualizarDatos(data)
         }
       }
-    }
+    }) 
     
     dataTask?.resume()
   }
   
-  func actualizarDatos(data: NSData?) {
+  func actualizarDatos(_ data: Data?) {
     asignaciones.removeAll()
     do {
-      if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
+      if let data = data, let response = try JSONSerialization.jsonObject(with: data, options:JSONSerialization.ReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
         if let array: AnyObject = response["asignaciones"] {
           for diccionarioDeAsignacion in array as! [AnyObject] {
-            if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
+            if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], let id = diccionarioDeAsignacion["id"] as? Int {
               
               var vehiculo = Vehiculo()
               if let objetoVehiculo: AnyObject = diccionarioDeAsignacion["vehiculo"] {
@@ -144,42 +144,42 @@ class UbicacionViewController: UIViewController {
       print("Error parseando resultados: \(error.localizedDescription)")
     }
     
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.picker.reloadAllComponents()
     }
   }
 
-  func enviarUbicacion(latitud: CLLocationDegrees, longitud: CLLocationDegrees, altitud: CLLocationDistance) {
+  func enviarUbicacion(_ latitud: CLLocationDegrees, longitud: CLLocationDegrees, altitud: CLLocationDistance) {
     if dataTask != nil {
       dataTask?.cancel()
     }
     
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    let asignacion = asignaciones[picker.selectedRowInComponent(0)]
-    let fecha = String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    let asignacion = asignaciones[picker.selectedRow(inComponent: 0)]
+    let fecha = String(format: "%.0f", Date().timeIntervalSince1970 * 1000)
     
     let urlString = "http://190.141.120.200:8080/Rutas/ubicacion/agregar?fecha=\(fecha)&asignacion=\(asignacion.id!)&latitud=\(latitud)&longitud=\(longitud)&altitud=\(altitud)"
 //    print(urlString)
     
-    let url = NSURL(string: urlString)
-    let request = NSMutableURLRequest(URL: url!)
-    request.HTTPMethod = "POST"
+    let url = URL(string: urlString)
+    let request = NSMutableURLRequest(url: url!)
+    request.httpMethod = "POST"
     
-    dataTask = defaultSession.dataTaskWithRequest(request) {
+    dataTask = defaultSession.dataTask(with: request, completionHandler: {
       data, response, error in
       
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
       }
       
       if let error = error {
         print(error.localizedDescription)
-      } else if let httpResponse = response as? NSHTTPURLResponse {
+      } else if let httpResponse = response as? HTTPURLResponse {
         if httpResponse.statusCode == 200 {
           
         }
       }
-    }
+    }) 
     
     dataTask?.resume()
   }
@@ -187,21 +187,21 @@ class UbicacionViewController: UIViewController {
 
 extension UbicacionViewController: UIPickerViewDataSource {
   
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
-  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     return asignaciones.count
   }
 }
 
 extension UbicacionViewController: UIPickerViewDelegate {
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     
   }
   
-  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     let asignacion = asignaciones[row]
     return "\(asignacion.id!) - \(asignacion.descripcion!)"
   }
@@ -216,15 +216,15 @@ extension UbicacionViewController: CLLocationManagerDelegate {
     locationManager.startUpdatingLocation()
   }
   
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Error al cargar ubicación: \(error)")
   }
   
-  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    mapView.showsUserLocation = (status == .AuthorizedAlways)
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    mapView.showsUserLocation = (status == .authorizedAlways)
   }
   
-  func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+  func locationManager(_ manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
     var zoomLocation = CLLocationCoordinate2D()
     zoomLocation.latitude = newLocation.coordinate.latitude
     zoomLocation.longitude = newLocation.coordinate.longitude
@@ -240,16 +240,16 @@ extension UbicacionViewController: CLLocationManagerDelegate {
   
   func trazarRecorrido() {
     if mapView.overlays.count > 0 {
-      mapView.removeOverlay(polyline)
+      mapView.remove(polyline)
     }
     polyline = MKPolyline(coordinates: &points, count: points.count)
-    mapView.addOverlay(polyline)
+    mapView.add(polyline)
   }
 }
 
 extension UbicacionViewController: MKMapViewDelegate {
   
-  func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
     if overlay is MKPolyline {
       let polylineRenderer = MKPolylineRenderer(overlay: overlay)
       polylineRenderer.strokeColor = UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.5)

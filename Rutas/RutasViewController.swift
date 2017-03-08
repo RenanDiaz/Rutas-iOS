@@ -10,8 +10,8 @@ import UIKit
 
 class RutasViewController: UIViewController {
   
-  let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  var dataTask: NSURLSessionDataTask?
+  let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+  var dataTask: URLSessionDataTask?
   
   @IBOutlet weak var tableView: UITableView!
   var searchBar: UISearchBar!
@@ -20,12 +20,12 @@ class RutasViewController: UIViewController {
   var resultados = [Ruta]()
   var cargar = true
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     if cargar {
       cargar = false
       tableView.tableFooterView = UIView()
-      searchBar = UISearchBar.init(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, 44))
+      searchBar = UISearchBar.init(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: 44))
       searchBar.placeholder = "Buscar rutas"
       searchBar.delegate = self
       tableView.tableHeaderView = searchBar
@@ -44,38 +44,38 @@ class RutasViewController: UIViewController {
         dataTask?.cancel()
       }
       
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+      UIApplication.shared.isNetworkActivityIndicatorVisible = true
       
-      let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/rutas")
+      let url = URL(string: "http://190.141.120.200:8080/Rutas/rest/rutas")
       
-      dataTask = defaultSession.dataTaskWithURL(url!) {
+      dataTask = defaultSession.dataTask(with: url!, completionHandler: {
         data, response, error in
         
-        dispatch_async(dispatch_get_main_queue()) {
-          UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        DispatchQueue.main.async {
+          UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         
         if let error = error {
           print(error.localizedDescription)
-        } else if let httpResponse = response as? NSHTTPURLResponse {
+        } else if let httpResponse = response as? HTTPURLResponse {
           if httpResponse.statusCode == 200 {
             self.actualizarDatos(data)
           }
         }
-      }
+      }) 
       
       dataTask?.resume()
     }
   }
   
-  func actualizarDatos(data: NSData?) {
+  func actualizarDatos(_ data: Data?) {
     rutas.removeAll()
     do {
-      if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
+      if let data = data, let response = try JSONSerialization.jsonObject(with: data, options:JSONSerialization.ReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
         if let array: AnyObject = response["rutas"] {
           for diccionarioDeRuta in array as! [AnyObject] {
-            if let diccionarioDeRuta = diccionarioDeRuta as? [String: AnyObject], id = diccionarioDeRuta["id"] as? Int {
+            if let diccionarioDeRuta = diccionarioDeRuta as? [String: AnyObject], let id = diccionarioDeRuta["id"] as? Int {
               let origen = diccionarioDeRuta["origen"] as? String
               let destino = diccionarioDeRuta["destino"] as? String
               let descripcion = diccionarioDeRuta["descripcion"] as? String
@@ -96,9 +96,9 @@ class RutasViewController: UIViewController {
     
     resultados = rutas
     
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.tableView.reloadData()
-      self.tableView.setContentOffset(CGPointMake(0, 44), animated: false)
+      self.tableView.setContentOffset(CGPoint(x: 0, y: 44), animated: false)
     }
   }
   
@@ -113,10 +113,10 @@ class RutasViewController: UIViewController {
   let routeSegueIdentifier = "ShowRouteInfoSegue"
   
   // MARK: - Navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if  segue.identifier == routeSegueIdentifier,
-      let destination = segue.destinationViewController as? RouteInfoController,
-      routeIndex = tableView.indexPathForSelectedRow?.row
+      let destination = segue.destination as? RouteInfoController,
+      let routeIndex = tableView.indexPathForSelectedRow?.row
     {
       destination.ruta = resultados[routeIndex]
     }
@@ -127,20 +127,20 @@ class RutasViewController: UIViewController {
 
 extension RutasViewController: UISearchBarDelegate {
   
-  func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
     dismissKeyboard()
   }
   
-  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     filterContentForSearchText(searchText)
   }
 
-  func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-    return .TopAttached
+  func position(for bar: UIBarPositioning) -> UIBarPosition {
+    return .topAttached
   }
   
-  func filterContentForSearchText(searchText: String) {
+  func filterContentForSearchText(_ searchText: String) {
     
     if self.rutas.count == 0 {
       self.resultados.removeAll()
@@ -152,12 +152,12 @@ extension RutasViewController: UISearchBarDelegate {
       if text.isEmpty {
         text = " "
       }
-      return ruta.descripcion!.lowercaseString.rangeOfString(text.lowercaseString) != nil
+      return ruta.descripcion!.lowercased().range(of: text.lowercased()) != nil
     })
     
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.tableView.reloadData()
-      self.tableView.setContentOffset(CGPointZero, animated: false)
+      self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
   }
 }
@@ -166,12 +166,12 @@ extension RutasViewController: UISearchBarDelegate {
 
 extension RutasViewController: UITableViewDataSource {
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return resultados.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("RouteCell", forIndexPath: indexPath) as!RouteCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "RouteCell", for: indexPath) as!RouteCell
     
     let route = resultados[indexPath.row]
     
@@ -181,7 +181,7 @@ extension RutasViewController: UITableViewDataSource {
     return cell
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     let numOfSections = resultados.count > 0 ? 1 : 0
     if (numOfSections > 0)
     {
@@ -189,10 +189,10 @@ extension RutasViewController: UITableViewDataSource {
     }
     else
     {
-      let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
       noDataLabel.text = "No hay rutas"
       noDataLabel.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-      noDataLabel.textAlignment = NSTextAlignment.Center
+      noDataLabel.textAlignment = NSTextAlignment.center
       tableView.backgroundView = noDataLabel
     }
     
@@ -204,19 +204,19 @@ extension RutasViewController: UITableViewDataSource {
 
 extension RutasViewController: UITableViewDelegate {
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 62.0
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     dismissKeyboard()
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }
 
 extension RutasViewController: UIScrollViewDelegate {
   
-  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     searchBar.resignFirstResponder()
   }
 }

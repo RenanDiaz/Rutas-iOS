@@ -11,8 +11,8 @@ import MapKit
 
 class MapViewController: UIViewController {
   
-  let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  var dataTask: NSURLSessionDataTask?
+  let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+  var dataTask: URLSessionDataTask?
 
   @IBOutlet weak var mapView: MKMapView!
   @IBOutlet weak var tiempoLabel: UILabel!
@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
   
   let METERS_PER_MILE: CDouble = 1609.344
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     locationManager.requestWhenInUseAuthorization()
     mapView.delegate = self
@@ -41,16 +41,16 @@ class MapViewController: UIViewController {
     getCurrentLocation()
   }
   
-  @IBAction func setMapType(sender: UISegmentedControl) {
+  @IBAction func setMapType(_ sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
     case 0:
-      mapView.mapType = MKMapType.Standard;
+      mapView.mapType = MKMapType.standard;
       break
     case 1:
-      mapView.mapType = MKMapType.Satellite;
+      mapView.mapType = MKMapType.satellite;
       break
     case 2:
-      mapView.mapType = MKMapType.Hybrid;
+      mapView.mapType = MKMapType.hybrid;
       break
     default:
       break
@@ -62,33 +62,33 @@ class MapViewController: UIViewController {
       dataTask?.cancel()
     }
     
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/ultimo-recorrido?asignacion=\(asignacion.id!)")
+    let url = URL(string: "http://190.141.120.200:8080/Rutas/rest/ultimo-recorrido?asignacion=\(asignacion.id!)")
     
-    dataTask = defaultSession.dataTaskWithURL(url!) {
+    dataTask = defaultSession.dataTask(with: url!, completionHandler: {
       data, response, error in
       
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
       }
       
       if let error = error {
         print(error.localizedDescription)
-      } else if let httpResponse = response as? NSHTTPURLResponse {
+      } else if let httpResponse = response as? HTTPURLResponse {
         if httpResponse.statusCode == 200 {
           self.actualizarDatos(data)
         }
       }
-    }
+    }) 
     
     dataTask?.resume()
   }
   
-  func actualizarDatos(data: NSData?) {
+  func actualizarDatos(_ data: Data?) {
     ultimaUbicacion = Ubicacion()
     do {
-      if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
+      if let data = data, let response = try JSONSerialization.jsonObject(with: data, options:JSONSerialization.ReadingOptions(rawValue:0)) as? [String: AnyObject] {
         if let objetoUbicacion: AnyObject = response["ultimaUbicacion"] {
           agregarUbicaciones(objetoUbicacion, ultima: true)
         } else {
@@ -108,17 +108,17 @@ class MapViewController: UIViewController {
       print("Error parseando resultados: \(error.localizedDescription)")
     }
     
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.marcarUbicacionBus()
       self.trazarRecorrido()
     }
   }
   
-  func agregarUbicaciones(objetoUbicacion: AnyObject, ultima: Bool) {
+  func agregarUbicaciones(_ objetoUbicacion: AnyObject, ultima: Bool) {
     if let id = objetoUbicacion["id"] as? Int {
       
       var asignacion = Asignacion()
-      if let diccionarioDeAsignacion = objetoUbicacion["asignacion"] as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
+      if let diccionarioDeAsignacion = objetoUbicacion["asignacion"] as? [String: AnyObject], let id = diccionarioDeAsignacion["id"] as? Int {
         
         var vehiculo = Vehiculo()
         if let objetoVehiculo: AnyObject = diccionarioDeAsignacion["vehiculo"] {
@@ -187,7 +187,7 @@ class MapViewController: UIViewController {
     }
     
     let polyline = MKPolyline(coordinates: &points, count: points.count)
-    mapView.addOverlay(polyline)
+    mapView.add(polyline)
   }
 }
 
@@ -200,15 +200,15 @@ extension MapViewController: CLLocationManagerDelegate {
     locationManager.startUpdatingLocation()
   }
   
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Error al cargar ubicación: \(error)")
   }
   
-  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    mapView.showsUserLocation = (status == .AuthorizedAlways)
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    mapView.showsUserLocation = (status == .authorizedAlways)
   }
   
-  func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+  func locationManager(_ manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
     
     if shouldUpdate {
       self.ubicacionActual = newLocation
@@ -226,7 +226,7 @@ extension MapViewController: CLLocationManagerDelegate {
     mapView.addAnnotation(ultimaUbicacion)
   }
   
-  func setAddress(location: CLLocation) {
+  func setAddress(_ location: CLLocation) {
     // Reverse Geocoding
     CLGeocoder().reverseGeocodeLocation(location, completionHandler:
       {(placemarks, error) in
@@ -255,7 +255,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     let directions = MKDirections(request: directionsRequest)
     
-    directions.calculateDirectionsWithCompletionHandler { (response, error) -> Void in
+    directions.calculate { (response, error) -> Void in
       print(error)
       let distance = response!.routes.first?.distance // meters
       self.distanciaLabel.text = "\(distance! / 1000)km"
@@ -267,19 +267,19 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
   
-  func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+  func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
     shouldUpdate = !mapViewRegionDidChangeFromUserInteraction()
     if (!shouldUpdate) {
       locationManager.stopUpdatingLocation()
     }
   }
   
-  private func mapViewRegionDidChangeFromUserInteraction() -> Bool {
+  fileprivate func mapViewRegionDidChangeFromUserInteraction() -> Bool {
     let view: UIView = self.mapView.subviews[0] as UIView
     //  Look through gesture recognizers to determine whether this region change is from user interaction
     if let gestureRecognizers = view.gestureRecognizers {
       for recognizer in gestureRecognizers {
-        if( recognizer.state == UIGestureRecognizerState.Began || recognizer.state == UIGestureRecognizerState.Ended ) {
+        if( recognizer.state == UIGestureRecognizerState.began || recognizer.state == UIGestureRecognizerState.ended ) {
           return true
         }
       }
@@ -287,7 +287,7 @@ extension MapViewController: MKMapViewDelegate {
     return false
   }
   
-  func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
     if overlay is MKPolyline {
       let polylineRenderer = MKPolylineRenderer(overlay: overlay)
       polylineRenderer.strokeColor = UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.5)

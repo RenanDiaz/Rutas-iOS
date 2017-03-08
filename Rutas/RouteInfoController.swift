@@ -10,8 +10,8 @@ import UIKit
 
 class RouteInfoController: UIViewController {
   
-  let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-  var dataTask: NSURLSessionDataTask?
+  let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+  var dataTask: URLSessionDataTask?
   
   @IBOutlet weak var origenLabel: UILabel!
   @IBOutlet weak var destinoLabel: UILabel!
@@ -30,7 +30,7 @@ class RouteInfoController: UIViewController {
     self.title = ruta.descripcion
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     origenLabel.text = ruta.origen!
     destinoLabel.text = ruta.destino!
     tableView.tableFooterView = UIView()
@@ -42,37 +42,37 @@ class RouteInfoController: UIViewController {
       dataTask?.cancel()
     }
     
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
-    let url = NSURL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy?ruta=\(ruta.id!)")
+    let url = URL(string: "http://190.141.120.200:8080/Rutas/rest/asignaciones/hoy?ruta=\(ruta.id!)")
     
-    dataTask = defaultSession.dataTaskWithURL(url!) {
+    dataTask = defaultSession.dataTask(with: url!, completionHandler: {
       data, response, error in
       
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
       }
       
       if let error = error {
         print(error.localizedDescription)
-      } else if let httpResponse = response as? NSHTTPURLResponse {
+      } else if let httpResponse = response as? HTTPURLResponse {
         if httpResponse.statusCode == 200 {
           self.actualizarDatos(data)
         }
       }
-    }
+    }) 
     
     dataTask?.resume()
   }
   
-  func actualizarDatos(data: NSData?) {
+  func actualizarDatos(_ data: Data?) {
     asignacionesPorFechas.removeAll()
     do {
-      if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
+      if let data = data, let response = try JSONSerialization.jsonObject(with: data, options:JSONSerialization.ReadingOptions(rawValue:0)) as? [String: AnyObject] {
         // Get the results array
         if let array: AnyObject = response["asignaciones"] {
           for diccionarioDeAsignacion in array as! [AnyObject] {
-            if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], id = diccionarioDeAsignacion["id"] as? Int {
+            if let diccionarioDeAsignacion = diccionarioDeAsignacion as? [String: AnyObject], let id = diccionarioDeAsignacion["id"] as? Int {
               
               var vehiculo = Vehiculo()
               if let objetoVehiculo: AnyObject = diccionarioDeAsignacion["vehiculo"] {
@@ -113,11 +113,11 @@ class RouteInfoController: UIViewController {
               let rangoDeHoras = diccionarioDeAsignacion["rangoDeHoras"] as? String
               let asignacion = Asignacion(id: id, vehiculo: vehiculo, ruta: rutaDeLaAsignacion, fechahoraDePartida: fechahoraDePartida, fechahoraDeLlegada: fechahoraDeLlegada, descripcion: descripcion, fechaDePartida: fechaDePartida, horaDePartida: horaDePartida, fechaDeLlegada: fechaDeLlegada, horaDeLlegada: horaDeLlegada, rangoDeHoras: rangoDeHoras)
               
-              if !asignacionesPorFechas.contains({ asignacionesPorFecha in asignacionesPorFecha.fecha == fechaDePartida!}) {
+              if !asignacionesPorFechas.contains(where: { asignacionesPorFecha in asignacionesPorFecha.fecha == fechaDePartida!}) {
                 self.asignacionesPorFechas.append(AsignacionesPorFecha(fecha: fechaDePartida!))
               }
               
-              let indice = self.asignacionesPorFechas.indexOf({$0.fecha == fechaDePartida!})
+              let indice = self.asignacionesPorFechas.index(where: {$0.fecha == fechaDePartida!})
               self.asignacionesPorFechas[indice!].add(asignacion)
             } else {
               print("No es un diccionario")
@@ -133,8 +133,8 @@ class RouteInfoController: UIViewController {
       print("Error parseando resultados: \(error.localizedDescription)")
     }
     
-    dispatch_async(dispatch_get_main_queue()) {
-      self.asignacionesPorFechas.sortInPlace({ $0.fecha < $1.fecha })
+    DispatchQueue.main.async {
+      self.asignacionesPorFechas.sort(by: { $0.fecha < $1.fecha })
       self.tableView.reloadData()
     }
   }
@@ -150,11 +150,11 @@ class RouteInfoController: UIViewController {
   let mapSegueIdentifier = "ShowMapSegue"
   
   // MARK: - Navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == mapSegueIdentifier,
-      let destination = segue.destinationViewController as? MapViewController,
-      routeIndex = tableView.indexPathForSelectedRow?.row,
-      routeSection = tableView.indexPathForSelectedRow?.section
+      let destination = segue.destination as? MapViewController,
+      let routeIndex = tableView.indexPathForSelectedRow?.row,
+      let routeSection = tableView.indexPathForSelectedRow?.section
     {
       destination.asignacion = asignacionesPorFechas[routeSection].asignaciones[routeIndex]
     }
@@ -164,12 +164,12 @@ class RouteInfoController: UIViewController {
 
 extension RouteInfoController: UITableViewDataSource {
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return asignacionesPorFechas[section].asignaciones.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("AsignationCell", forIndexPath: indexPath) as!AsignationCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "AsignationCell", for: indexPath) as!AsignationCell
     
     let asignacion = asignacionesPorFechas[indexPath.section].asignaciones[indexPath.row]
     
@@ -179,7 +179,7 @@ extension RouteInfoController: UITableViewDataSource {
     return cell
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     let numOfSections = asignacionesPorFechas.count
     if (numOfSections > 0)
     {
@@ -187,17 +187,17 @@ extension RouteInfoController: UITableViewDataSource {
     }
     else
     {
-      let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
       noDataLabel.text = "No hay horarios asignados"
       noDataLabel.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-      noDataLabel.textAlignment = NSTextAlignment.Center
+      noDataLabel.textAlignment = NSTextAlignment.center
       tableView.backgroundView = noDataLabel
     }
     
     return numOfSections
   }
   
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return asignacionesPorFechas[section].fechaFormateada()
   }
 }
@@ -206,11 +206,11 @@ extension RouteInfoController: UITableViewDataSource {
 
 extension RouteInfoController: UITableViewDelegate {
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 62.0
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }

@@ -12,8 +12,8 @@ class Asignacion {
   var id: Int?
   var vehiculo: Vehiculo?
   var ruta: Ruta?
-  var fechahoraDePartida: NSDate?
-  var fechahoraDeLlegada: NSDate?
+  var fechahoraDePartida: Date?
+  var fechahoraDeLlegada: Date?
   var descripcion: String?
   var fechaDePartida: String?
   var horaDePartida: String?
@@ -25,8 +25,8 @@ class Asignacion {
     self.id = id
     self.vehiculo = vehiculo
     self.ruta = ruta
-    self.fechahoraDePartida = NSDate(timeIntervalSince1970: fechahoraDePartida!)
-    self.fechahoraDeLlegada = NSDate(timeIntervalSince1970: fechahoraDeLlegada!)
+    self.fechahoraDePartida = Date(timeIntervalSince1970: fechahoraDePartida!)
+    self.fechahoraDeLlegada = Date(timeIntervalSince1970: fechahoraDeLlegada!)
     self.descripcion = descripcion
     self.fechaDePartida = fechaDePartida
     self.horaDePartida = horaDePartida
@@ -42,15 +42,15 @@ class Asignacion {
   func rangoDeHorasFormateado() -> String {
     return "\(formatShortTimeToLocalizedTime(horaDePartida!)) - \(formatShortTimeToLocalizedTime(horaDeLlegada!))"
   }
-  func formatShortTimeToLocalizedTime(timeString: String) -> String {
-    let dateFormatter = NSDateFormatter()
+  func formatShortTimeToLocalizedTime(_ timeString: String) -> String {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"
-    let time = dateFormatter.dateFromString(timeString)
+    let time = dateFormatter.date(from: timeString)
     
-    dateFormatter.dateStyle = NSDateFormatterStyle.NoStyle
-    dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-    dateFormatter.timeZone = NSTimeZone.localTimeZone()
-    dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(time!)
+    dateFormatter.dateStyle = DateFormatter.Style.none
+    dateFormatter.timeStyle = DateFormatter.Style.short
+    dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+    dateFormatter.locale = Locale.current
+    return dateFormatter.string(from: time!)
   }
 }

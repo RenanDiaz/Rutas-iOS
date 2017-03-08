@@ -11,14 +11,14 @@ import MapKit
 class Ubicacion: NSObject, MKAnnotation{
   var title: String?
   var id: Int?
-  var fechahora: NSDate?
+  var fechahora: Date?
   var asignacion: Asignacion?
   var subtitle: String?
   var coordinate: CLLocationCoordinate2D
   
   init(id: Int?, fechahora: Double?, asignacion: Asignacion?, coordinate: CLLocationCoordinate2D) {
     self.id = id
-    self.fechahora = NSDate(timeIntervalSince1970: fechahora!)
+    self.fechahora = Date(timeIntervalSince1970: fechahora!)
     self.asignacion = asignacion
     self.coordinate = coordinate
     self.title = asignacion!.vehiculo!.nombreCorto!
@@ -32,7 +32,7 @@ class Ubicacion: NSObject, MKAnnotation{
     super.init()
   }
   
-  func establecerDireccion(direccion: String) {
+  func establecerDireccion(_ direccion: String) {
     self.subtitle = direccion
   }
 }
